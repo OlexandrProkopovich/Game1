@@ -1,16 +1,32 @@
 ﻿  main.cpp
-C:\Users\user\source\repos\Project1\main.cpp(45,25): warning C4305: аргумент: усечение из "double" в "float"
-C:\Users\user\source\repos\Project1\main.cpp(45,20): warning C4305: аргумент: усечение из "double" в "float"
-C:\Users\user\source\repos\Project1\main.cpp(59,14): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(73,23): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(78,24): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(81,23): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(86,24): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(89,22): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(94,24): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(97,26): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(102,24): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(105,25): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(109,11): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-C:\Users\user\source\repos\Project1\main.cpp(114,15): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-  Project1.vcxproj -> C:\Users\user\source\repos\Project1\x64\Debug\Project1.exe
+C:\Users\sasha\source\repos\Game1\Player.h(51,38): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\sasha\source\repos\Game1\Player.h(51,44): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\sasha\source\repos\Game1\Interface.h(21,42): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\sasha\source\repos\Game1\Interface.h(21,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\sasha\source\repos\Game1\Interface.h(36,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\sasha\source\repos\Game1\Enemy.h(49,39): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\sasha\source\repos\Game1\Enemy.h(49,45): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\sasha\source\repos\Game1\Enemy.h(75,30): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\sasha\source\repos\Game1\Enemy.h(75,25): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\sasha\source\repos\Game1\func.h(14,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\sasha\source\repos\Game1\func.h(14,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\sasha\source\repos\Game1\func.h(64,23): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\sasha\source\repos\Game1\main.cpp(80,14): warning C4244: 'initializing': conversion from 'sf::Int64' to 'float', possible loss of data
+C:\Users\sasha\source\repos\Game1\main.cpp(84,74): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\sasha\source\repos\Game1\main.cpp(86,21): warning C4244: 'initializing': conversion from 'sf::Int64' to 'float', possible loss of data
+C:\Users\sasha\source\repos\Game1\main.cpp(88,22): warning C4244: 'initializing': conversion from 'sf::Int64' to 'float', possible loss of data
+C:\Users\sasha\source\repos\Game1\main.cpp(106,27): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\sasha\source\repos\Game1\main.cpp(111,27): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\sasha\source\repos\Game1\main.cpp(116,27): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\sasha\source\repos\Game1\main.cpp(121,27): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\sasha\source\repos\Game1\main.cpp(44,11): warning C4101: 'y': unreferenced local variable
+C:\Users\sasha\source\repos\Game1\main.cpp(44,8): warning C4101: 'x': unreferenced local variable
+  Project1.vcxproj -> C:\Users\sasha\source\repos\Game1\x64\Debug\Project1.exe
