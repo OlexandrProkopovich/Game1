@@ -4,7 +4,7 @@
 
 void Player::Update(float time)
 {
-
+    if(!isDead){
 	if (dir == 0) //right
 	{ 
 		dx = speed; dy = 0;
@@ -48,70 +48,148 @@ void Player::Update(float time)
 	y = new_y;
 
 	Hero_Sprite.setPosition(x, y);
-
+    }
 }
 
-void Player::Animation(float time, float& CurentFrame)
+void Player::Animation(float time, float CurentFrame)
 {
-	
-	if (dir == 0) {
-		Hero_Sprite.setTexture(walkRight_Texture); Hero_Sprite.setScale(1.8, 1.8);
-		CurentFrame += time * 0.005;
-		if (CurentFrame >= 3) { CurentFrame -= 3; }
-		Hero_Sprite.setTextureRect(sf::IntRect(48 * (int)CurentFrame, 0, 48, 48));
-		if (isShooting)
-		{
-			Hero_Sprite.setTexture(righ_attack_Texture);  Hero_Sprite.setScale(1.8, 1.8);
-		}
-	} else 
-	if (dir == 1) {
-		Hero_Sprite.setTexture(walkLeft_Texture); Hero_Sprite.setScale(1.8, 1.8);
-		CurentFrame += time * 0.005;
-		if (CurentFrame >= 3) { CurentFrame -= 3; }
-		Hero_Sprite.setTextureRect(sf::IntRect(48 * (int)CurentFrame, 0, 48, 48));
-		if (isShooting)
-		{
-				Hero_Sprite.setTexture(left_attack_Texture);  Hero_Sprite.setScale(1.8, 1.8);
-		}
-	} else
-	if (dir == 2) {
-		Hero_Sprite.setTexture(downWalk_Texture); Hero_Sprite.setScale(1.8, 1.8);
-		CurentFrame += time * 0.005;
-		if (CurentFrame >= 3) { CurentFrame -= 3; }
-		Hero_Sprite.setTextureRect(sf::IntRect(48 * (int)CurentFrame, 0, 48, 48));
-		if (isShooting)
-		{
-			Hero_Sprite.setTexture(down_attack_Texture);  Hero_Sprite.setScale(1.8, 1.8);
-		}
-	} else
-	if (dir == 3) {
-		Hero_Sprite.setTexture(upWalk_Texture); Hero_Sprite.setScale(1.8, 1.8);
-		CurentFrame += time * 0.005;
-		if (CurentFrame >= 3) { CurentFrame -= 3; }
-		Hero_Sprite.setTextureRect(sf::IntRect(48 * (int)CurentFrame, 0, 48, 48));
-		if (isShooting)
-		{
-			Hero_Sprite.setTexture(up_attack_Texture);  Hero_Sprite.setScale(1.8, 1.8);
-		}
-	} else
-	if (dir == 4) {
-		Hero_Sprite.setTexture(Idle_Texture); Hero_Sprite.setScale(1.8, 1.8); 
-		CurentFrame += time * 0.005;
-		if (CurentFrame >= 3) { CurentFrame -= 3; }
-		Hero_Sprite.setTextureRect(sf::IntRect(48 * (int)CurentFrame, 0, 48, 48));
-		if (isShooting)
-		{
-			Hero_Sprite.setTexture(down_attack_Texture);  Hero_Sprite.setScale(1.8, 1.8);
-		}
-	}
+    if(!isDead){
+    int framesInTexture = 6;  // Замініть це значення на реальну кількість кадрів у вашій текстурі анімації
+    if (dir == 0) {
+        Hero_Sprite.setTexture(walkRight_Texture); Hero_Sprite.setScale(1.8, 1.8);
+   
+        if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; }
+        Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+    }
+    else if (dir == 1) {
+        Hero_Sprite.setTexture(walkLeft_Texture); Hero_Sprite.setScale(1.8, 1.8);
+     
+        if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; }
+        Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+    }
+    else if (dir == 2) {
+        Hero_Sprite.setTexture(downWalk_Texture); Hero_Sprite.setScale(1.8, 1.8);
+
+        if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; }
+        Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+    }
+    else if (dir == 3) {
+        Hero_Sprite.setTexture(upWalk_Texture); Hero_Sprite.setScale(1.8, 1.8);
+     
+        if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; }
+        Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+    }
+    else if (dir == 4) {
+        Hero_Sprite.setTexture(Idle_Texture); Hero_Sprite.setScale(1.8, 1.8);
+
+        if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; }
+        Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+    }
+    }
+}
+
+
+void Player::AttackAnimation(float time, float CurentFrame) {
+    if (isShooting && !isDead)
+    {
+        int framesInTexture = 5;  // Замініть це значення на реальну кількість кадрів у вашій текстурі анімації
+        if (dir == 0) {
+            Hero_Sprite.setTexture(righ_attack_Texture);  Hero_Sprite.setScale(1.8, 1.8);
+         
+            if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; }
+            Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+        }
+        else if (dir == 1) {
+            Hero_Sprite.setTexture(left_attack_Texture);  Hero_Sprite.setScale(1.8, 1.8);
+           
+            if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; }
+            Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+        }
+        else if (dir == 2) {
+            Hero_Sprite.setTexture(down_attack_Texture);  Hero_Sprite.setScale(1.8, 1.8);
+            
+            if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; }
+            Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+        }
+        else if (dir == 3) {
+            Hero_Sprite.setTexture(up_attack_Texture);  Hero_Sprite.setScale(1.8, 1.8);
+        
+            if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; }
+            Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+        }
+        else if (dir == 4) {
+            Hero_Sprite.setTexture(down_attack_Texture);  Hero_Sprite.setScale(1.8, 1.8);
+ 
+            if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; }
+            Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+        }
+    }
+}
+
+
+void Player::TakeDamageAnimation(float CurentFrame, float time) {
+    if (TakeDamage && !isDead) {
+        int framesInTexture = 4;
+        if (dir == 0) {
+            Hero_Sprite.setTexture(TakeDamage_Right_Texture); Hero_Sprite.setScale(1.8, 1.8);
+            if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; TakeDamage = false; }
+            Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+        }
+        else if (dir == 1) {
+            Hero_Sprite.setTexture(TakeDamage_Left_Texture); Hero_Sprite.setScale(1.8, 1.8);
+            if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; TakeDamage = false;
+            }
+            Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+        }
+        else if (dir == 3) {
+            Hero_Sprite.setTexture(TakeDamage_Up_Texture); Hero_Sprite.setScale(1.8, 1.8);
+            if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; TakeDamage = false;
+            }
+            Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+        }
+        else if (dir == 2) {
+            Hero_Sprite.setTexture(TakeDamage_Down_Texture); Hero_Sprite.setScale(1.8, 1.8);
+            if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; TakeDamage = false;
+            }
+            Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+        }
+        else if (dir == 4) {
+            Hero_Sprite.setTexture(TakeDamage_Down_Texture);  Hero_Sprite.setScale(1.8, 1.8);
+            if (CurentFrame >= framesInTexture) { CurentFrame -= framesInTexture; TakeDamage = false;
+            }
+            Hero_Sprite.setTextureRect(sf::IntRect(48 * static_cast<int>(CurentFrame), 0, 48, 48));
+        }
+    }
+    else if (isDead)
+    {
+        Hero_Sprite.setTexture(Death_Texture);
+    }
+}
+
+void Player::DeathAnimation(float CurentFrame) {
+    const int framesInTexture = 8;
+
+    if (isDead && !deathAnimationFinished)
+    {
+        speed = 0;
+        Hero_Sprite.setTexture(Death_Texture);
+        Hero_Sprite.setScale(1.8, 1.8);
+
+        if (CurentFrame >= framesInTexture)
+        {
+            CurentFrame = framesInTexture - 0.01; // Незначний зсув для коректного виведення останнього кадру
+            deathAnimationFinished = true;
+        }
+
+        const int frameIndex = static_cast<int>(CurentFrame);
+        Hero_Sprite.setTextureRect(sf::IntRect(48 * frameIndex, 0, 48, 48));
+    }
 }
 
 void Player::startAttack() {
 	isShooting = true;
-	std::cout << "isAttaking" << std::endl;
 }
 
 void Player::stopAttack() {
 	isShooting = false;
-	std::cout << "stopAttaking" << std::endl;
 }

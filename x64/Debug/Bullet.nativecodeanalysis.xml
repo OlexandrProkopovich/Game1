@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\c++libs\SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include\SFML\Graphics\</FILEPATH>
+      <FILENAME>Glyph.hpp</FILENAME>
+      <LINE>49</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'sf::Glyph::rsbDelta' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>sf::Glyph::{ctor}</FUNCTION>
+    <DECORATED>??0Glyph@sf@@QEAA@XZ</DECORATED>
+    <FUNCLINE>49</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>sf::Glyph::rsbDelta</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\c++libs\SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include\SFML\Graphics\</FILEPATH>
+      <FILENAME>Glyph.hpp</FILENAME>
+      <LINE>49</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'sf::Glyph::lsbDelta' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>sf::Glyph::{ctor}</FUNCTION>
+    <DECORATED>??0Glyph@sf@@QEAA@XZ</DECORATED>
+    <FUNCLINE>49</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>sf::Glyph::lsbDelta</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\sasha\source\repos\Game1\</FILEPATH>
+      <FILENAME>Player.h</FILENAME>
+      <LINE>73</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Player::dx' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Player::{ctor}</FUNCTION>
+    <DECORATED>??0Player@@QEAA@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0000MHHMMAEAVRenderWindow@sf@@000000000@Z</DECORATED>
+    <FUNCLINE>73</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Player::dx</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\sasha\source\repos\Game1\</FILEPATH>
+      <FILENAME>Player.h</FILENAME>
+      <LINE>73</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Player::dy' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Player::{ctor}</FUNCTION>
+    <DECORATED>??0Player@@QEAA@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0000MHHMMAEAVRenderWindow@sf@@000000000@Z</DECORATED>
+    <FUNCLINE>73</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Player::dy</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\sasha\source\repos\Game1\</FILEPATH>
+      <FILENAME>Bullet.h</FILENAME>
+      <LINE>29</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Bullet::x' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Bullet::{ctor}</FUNCTION>
+    <DECORATED>??0Bullet@@QEAA@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@000M@Z</DECORATED>
+    <FUNCLINE>29</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Bullet::x</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\sasha\source\repos\Game1\</FILEPATH>
+      <FILENAME>Bullet.h</FILENAME>
+      <LINE>29</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Bullet::y' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Bullet::{ctor}</FUNCTION>
+    <DECORATED>??0Bullet@@QEAA@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@000M@Z</DECORATED>
+    <FUNCLINE>29</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Bullet::y</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

@@ -11,6 +11,48 @@
 #include "Interface.h"
 #include "func.h"
 #include "Enemy.h"
+#include "lifeBar.h"
+
+
+bool CheckCollision(const sf::Sprite& bulletSprite, const Enemy& enemy)
+{
+	// Отримати глобальні межі спрайтів
+	sf::FloatRect bulletBounds = bulletSprite.getGlobalBounds();
+	sf::FloatRect enemyBounds = enemy.Enemy_Sprite.getGlobalBounds();
+	
+	enemyBounds.top += 28;
+	enemyBounds.left += 39;
+	enemyBounds.height = 25;
+	enemyBounds.width = 8;
+
+	return bulletBounds.intersects(enemyBounds);
+}
+
+bool CheckCollision_array(const sf::Sprite& bulletSprite, std::vector<Enemy>& enemies)
+{
+	for (auto& enemy : enemies)
+	{
+		sf::FloatRect bulletBounds = bulletSprite.getGlobalBounds();
+		sf::FloatRect enemyBounds = enemy.Enemy_Sprite.getGlobalBounds();
+
+		enemyBounds.top += 28;
+		enemyBounds.left += 39;
+		enemyBounds.height = 25;
+		enemyBounds.width = 8;
+
+		if (bulletBounds.intersects(enemyBounds))
+		{
+			enemy.EnemyTakeDamage();
+			return true;
+		}
+	}
+
+	// No collision detected with any enemy
+	return false;
+	
+}
+
+
 
 void Statistic() {
 	sf::RenderWindow stat(sf::VideoMode(1024, 1024), "Player statistics");
@@ -39,52 +81,65 @@ void Statistic() {
 
 void GameStart()
 {
-	sf::RenderWindow Play(sf::VideoMode(1024, 1024), "TestSFML");
+	sf::RenderWindow Play(sf::VideoMode(1024, 1024), "Kursach");
 	std::srand(static_cast<unsigned>(std::time(nullptr)));
 	float x, y;
 	Player p1("images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Down/Png/Idle.png", "images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Right/Png/walk.png",
 		"images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Left/Png/walk.png", "images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Up/Png/walk.png",
-		"images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Down/Png/walk.png", 900, 900, 48, 48, Play, "images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Down/Png/down_attack.png",
+		"images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Down/Png/walk.png", 0.2,  900, 900, 48, 48, Play, "images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Down/Png/down_attack.png",
 		"images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Up/Png/up_attack.png", "images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Left/Png/left_attack.png",
-		"images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Right/Png/right_attack.png");
+		"images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Right/Png/right_attack.png", "images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Right/Png/hurt.png",
+		"images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Left/Png/hurt.png", "images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Up/Png/hurt.png",
+		"images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Down/Png/hurt.png",
+		"images/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Foozle_2DC0011_Lucifer_Sorceress_Pixel_Art/Down/Png/Death.png");
 
 	Enemy enemy1("images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Down/Png/Idle.png", "images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Right/Png/right_run.png",
 		"images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Left/Png/left_run.png", "images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Up/Png/up_run.png",
-		"images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Down/Png/down_run.png", 400, 400);
+		"images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Down/Png/down_run.png", "images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Right/Png/take_damage.png", 
+		"images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Left/Png/take_damage.png", "images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Up/Png/take_damage.png", 
+		"images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Down/Png/down_run.png", "images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Down/Png/Death.png",
+		"images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Right/Png/attack.png", "images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Left/Png/attack.png", 
+		"images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Up/Png/attack.png", "images/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Foozle_2DC0018_Lucifer_Skeleton_Grunt_Pixel_Art/Down/Png/attack.png", 400, 400, 0.1);
 	std::vector<Enemy> enemies;
-	
-	Bullet fireBall("images/fire/Right.png", "images/fire/Left.png", "images/fire/Up.png", "images/fire/Down.png", 1);
-	//fireBall.SetBulletPosition(p1);     // якщо треба одну кулю розкомітити
 
+	Bullet fireBall("images/fire/Right.png", "images/fire/Left.png", "images/fire/Up.png", "images/fire/Down.png", 1);
 	std::vector<Bullet> bullets;
-	
+	std::vector<int> bulletsToDelete;
 
 	Interface background("images/grass.png", 1024, 1024);
 
 	sf::Text text;
 	background.WorkText("font/Maestroc.otf", text, 17, 0, L"time in game: ", 50, sf::Color::Black, 0, sf::Color::Black);
 
-	float CurentFrame = 0;
+	lifeBar life_bar (800, 25, "images/life_bar.png");
+
+	float CurentFrame = 0;           // ігровий час
 	sf::Clock clock;
 
-	sf::Clock gameTimeClock_in_second;
-	int gameTime_in_second = 0;
+	sf::Clock gameTimeClock_in_second; // дисплейний час
+	int gameTime_in_second = 0; 
 
-	sf::Clock enemySpawnTimer;
-	
-	sf::Clock AttackColdown;
+	sf::Clock enemySpawnTimer;    // кулдаун спавну ворогів
+
+	sf::Clock AttackColdown;    // кулдаун спавну кулі
 
 	while (Play.isOpen())
 	{
-	
+		sf::sleep(sf::milliseconds(16));
 		float time = clock.getElapsedTime().asMicroseconds();          //час гри
 		clock.restart();
 		time /= 800;
+		life_bar.Update_LifeBar(p1);
+		CurentFrame += time * 0.005;
+		if (CurentFrame >= 8.1)
+		{
+			CurentFrame -= 8;
+		}
 
 		gameTime_in_second = gameTimeClock_in_second.getElapsedTime().asSeconds();  // час у грі(таймер)
-		
+
 		float elapsedTime = enemySpawnTimer.getElapsedTime().asMicroseconds(); // для часу спавну ворогів
-		
+
 		float elapsedTime1 = AttackColdown.getElapsedTime().asMicroseconds();	// для кулдауна атаки
 
 		sf::Event event_play;
@@ -101,62 +156,105 @@ void GameStart()
 		if (p1.dir == 4)
 		{
 			p1.Animation(time, CurentFrame);
-		}  
+			p1.AttackAnimation(time, CurentFrame);
+		}
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || (sf::Keyboard::isKeyPressed(sf::Keyboard::A)))) {
-			p1.dir = 1; p1.speed = 0.2;
+			p1.dir = 1; 
 			p1.Animation(time, CurentFrame);
-		} 
+			p1.AttackAnimation(time, CurentFrame);
+		}
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || (sf::Keyboard::isKeyPressed(sf::Keyboard::D))))
 		{
-			p1.dir = 0; p1.speed = 0.2;
+			p1.dir = 0; 
 			p1.Animation(time, CurentFrame);
-		} 
+			p1.AttackAnimation(time, CurentFrame);
+		}
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || (sf::Keyboard::isKeyPressed(sf::Keyboard::W))))
 		{
-			p1.dir = 3; p1.speed = 0.2;
+			p1.dir = 3; 
 			p1.Animation(time, CurentFrame);
-		} 
+			p1.AttackAnimation(time, CurentFrame);
+		}
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || (sf::Keyboard::isKeyPressed(sf::Keyboard::S))))
 		{
-			p1.dir = 2; p1.speed = 0.2;
+			p1.dir = 2; 
 			p1.Animation(time, CurentFrame);
-		} 
-		
-		p1.Update(time);
+			p1.AttackAnimation(time, CurentFrame);
+		}
 
-		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
 			p1.startAttack();
-			fireBall.SetBulletPosition(p1);								  // якщо багато куль треба то розкомітити
-			bullet_spawn(fireBall, bullets, elapsedTime1, AttackColdown);                                //для багатьох куль оновити анімацію
-			bullet_update(time, CurentFrame, bullets, enemy1);              //для багатьох куль оновити рух
-			
-			//fireBall.BulletAnimation(time, CurentFrame);                                //для одиночної кулі оновити анімацію
-			//fireBall.BulletUpdate(time, enemy1);									   	//для одиночної кулі оновити рух
+			fireBall.SetBulletPosition(p1);
+			bullet_spawn(fireBall, bullets, elapsedTime1, AttackColdown, p1);
 		}
 		else {
 			p1.stopAttack();
 		}
+
+		p1.Update(time);
 		
+
+		enemy_spawn(elapsedTime, Play, enemy1, enemies, enemySpawnTimer);
+
+		bullet_update_array(time, CurentFrame, bullets, enemies);
+
+		for (auto it = bullets.begin(); it != bullets.end(); )
+		{
+			if (CheckCollision_array(it->Bullet_Sprite, enemies))
+			{
+				// Видаляємо елемент та отримуємо ітератор на наступний елемент
+				it = bullets.erase(it);
+			}
+			else
+			{
+				// Просто ітеруємо, якщо колізії немає
+				++it;
+			}
+		}
+
+		for (auto& enemy : enemies) {
+			if (enemy.health <= 0)
+			{
+				enemy.isDead = true;
+				enemy.deleteEnemy = true;
+			}
+		}
+
+		enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](const Enemy& enemy) {
+			if (enemy.deathAnimationFinished) {
+				return enemy.isDead;
+			}
+			}), enemies.end());
+
+		for (auto& enemy : enemies) {
+			// Оновлення статусу та анімації ворога
+			enemy.EnemyUpdate(time, p1);
+			enemy.EnemyAnimation(CurentFrame, time);
+			enemy.TakeDamageAnimation(CurentFrame, time);
+			enemy.DeathAnimation(CurentFrame, time);
+			enemy.AttackAnimation(CurentFrame, p1);
+		}
+
+		p1.TakeDamageAnimation(CurentFrame, time);
+
+		if (p1.health <= 0)
+		{
+			p1.isDead = true;
+		}
+		p1.DeathAnimation(CurentFrame);
 		
 		std::ostringstream gameTimeStringInSecond;
 		gameTimeStringInSecond << gameTime_in_second;
 		text.setString("Time in game: " + gameTimeStringInSecond.str());
 
-		//RandomSpawn(elapsedTime, Play, enemy1, enemies, enemySpawnTimer);                //спавнер ворогів
-
 		Play.clear();
 		Play.draw(background.background);
-
-		//DrawEnemy(enemies, Play, time, p1, CurentFrame);                                 //малювати ворогів
-		         
-		buller_draw(Play, bullets);                                                        //малювати пулі
-
-
-	    Play.draw(enemy1.Enemy_Sprite);
+	    //Play.draw(enemy1.Enemy_Sprite);
 		Play.draw(p1.Hero_Sprite);
-		//Play.draw(fireBall.Bullet_Sprite);                                               //малювати одиночну пулю
+		buller_draw(Play, bullets);
+		enemy_draw(Play, enemies);
+		Play.draw(life_bar.LifeBar);
 		Play.draw(text);
 		Play.display();
 	}

@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Enemy.h"
 #include "Bullet.h"
-void RandomSpawn(float elapsedTime, const sf::RenderWindow& window, const Enemy& enemy, std::vector<Enemy>& enemies, sf::Clock& enemySpawnTimer) {
+void enemy_spawn(float elapsedTime, const sf::RenderWindow& window, const Enemy& enemy, std::vector<Enemy>& enemies, sf::Clock& enemySpawnTimer) {
 	int minSpawnInterval = 2000000;
 	if (elapsedTime > minSpawnInterval)
 	{
@@ -17,17 +17,35 @@ void RandomSpawn(float elapsedTime, const sf::RenderWindow& window, const Enemy&
 	}
 }
 
-void DrawEnemy(std::vector<Enemy>& enemies, sf::RenderWindow& window, float time, Player& player, float CurentFrame)
+
+void enemy_update(std::vector<Enemy>& enemies, float time, Player& player, float CurentFrame)
 {
-	for (size_t i = 0; i < enemies.size(); ++i)
+	for (auto& enemy : enemies)
 	{
-		enemies[i].EnemyUpdate(time, player);
-		enemies[i].EnemyAnimation(CurentFrame, time);
-		window.draw(enemies[i].Enemy_Sprite);
+		enemy.EnemyUpdate(time, player);
+		enemy.EnemyAnimation(CurentFrame, time);
+		enemy.TakeDamageAnimation(CurentFrame, time);
+		enemy.DeathAnimation(CurentFrame, time);
 	}
 }
 
-void bullet_spawn(const Bullet& bullet, std::vector <Bullet>& bullets, float elapsedTime1, sf::Clock& attackcoldown_clocl)
+void UpdateEnemies(float time, float CurrentFrame, std::vector<Enemy>& enemies) {
+	for (auto& enemy : enemies) {
+		// Оновлення статусу та анімації ворога
+		enemy.TakeDamageAnimation(CurrentFrame, time);
+	}
+}
+
+
+void enemy_draw(sf::RenderWindow& window, const std::vector<Enemy>& enemies)
+{
+	for (auto it = enemies.begin(); it != enemies.end(); ++it)
+	{
+		window.draw(it->Enemy_Sprite);
+	}
+}
+
+void bullet_spawn(const Bullet& bullet, std::vector <Bullet>& bullets, float elapsedTime1, sf::Clock& attackcoldown_clocl, const Player& p1)
 {
 	int AttackColdown = 1000000;
 	if (elapsedTime1 > AttackColdown) {
@@ -41,24 +59,35 @@ void bullet_update(float time, float CurentFrame, std::vector<Bullet>& bullets, 
 {
 	for (size_t i = 0; i < bullets.size(); ++i)
 	{
-		
+
 		bullets[i].BulletUpdate(time, enemy);
 		bullets[i].BulletAnimation(time, CurentFrame);
 	}
-	
+
 }
 
-void buller_draw(sf::RenderWindow& window, std::vector<Bullet> bullets)
+void bullet_update_array(float time, float CurentFrame, std::vector<Bullet>& bullets, const std::vector<Enemy>& enemies)
 {
-	for(size_t i = 0; i < bullets.size(); ++i){
+	for(auto& bullet : bullets)
+	{
+		bullet.BulletUpdate_array(time, enemies);
+		bullet.BulletAnimation(time, CurentFrame);
+	}
+
+}
+
+void buller_draw(sf::RenderWindow& window, std::vector<Bullet>& bullets)
+{
+	for (size_t i = 0; i < bullets.size(); ++i) {
 		window.draw(bullets[i].Bullet_Sprite);
 	}
 }
+
 struct Vector2D
 {
 	float x, y;
 	Vector2D() = default;
-	Vector2D(float _x, float _y) : x(_x), y(_y){}
+	Vector2D(float _x, float _y) : x(_x), y(_y) {}
 	int Dot(const Vector2D& v1, const Vector2D& v2)
 	{
 		return (v1.x * v2.x + v1.y * v2.y);

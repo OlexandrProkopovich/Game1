@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Enemy.h"
-class Bullet{
+class Bullet {
 public:
     float speed = 0;
     float x, y;
@@ -24,7 +24,7 @@ public:
     sf::Texture bulletDown_Texture;
 
     sf::Sprite Bullet_Sprite;
-    
+
 
     Bullet(std::string _bullet_Right, std::string _bullet_Left, std::string _bullet_Up, std::string _bullet_Down, float _speed) : bullet_Right(_bullet_Right), bullet_Left(_bullet_Left),
         bullet_Up(_bullet_Up), bullet_Down(_bullet_Down), speed(_speed)
@@ -45,7 +45,11 @@ public:
 
     void SetBulletPosition(const Player& player);
 
-    void BulletUpdate(float time, const Enemy& enemy);
-   
+    void BulletUpdate(float time, const Enemy& enemies);
+
+    void BulletUpdate_array(float time, const std::vector<Enemy>& enemies);
+
+    float getDistance(const sf::Vector2f& v1, const sf::Vector2f& v2);
+
     void BulletAnimation(float time, float CurentFrame);
 };

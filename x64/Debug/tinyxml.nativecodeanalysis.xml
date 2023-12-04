@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\sasha\source\repos\Game1\tinyxml\</FILEPATH>
+      <FILENAME>tinyxml.cpp</FILENAME>
+      <LINE>62</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>TiXmlBase::EncodeString</FUNCTION>
+    <DECORATED>?EncodeString@TiXmlBase@@SAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEAV23@@Z</DECORATED>
+    <FUNCLINE>52</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\sasha\source\repos\Game1\tinyxml\</FILEPATH>
+      <FILENAME>tinyxml.cpp</FILENAME>
+      <LINE>63</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>TiXmlBase::EncodeString</FUNCTION>
+    <DECORATED>?EncodeString@TiXmlBase@@SAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEAV23@@Z</DECORATED>
+    <FUNCLINE>52</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\sasha\source\repos\Game1\tinyxml\</FILEPATH>
+      <FILENAME>tinyxml.cpp</FILENAME>
+      <LINE>1032</LINE>
+      <COLUMN>29</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>TiXmlDocument::LoadFile</FUNCTION>
+    <DECORATED>?LoadFile@TiXmlDocument@@QEAA_NPEAU_iobuf@@W4TiXmlEncoding@@@Z</DECORATED>
+    <FUNCLINE>986</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

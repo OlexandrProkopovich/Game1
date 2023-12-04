@@ -1,13 +1,16 @@
-#include "Bullet.h"
-
+Ôªø#include "Bullet.h"
+#include "Player.h"
 void Bullet::SetBulletPosition(const Player& player) {
-    Bullet_Sprite.setPosition(player.Hero_Sprite.getPosition().x + 24, player.Hero_Sprite.getPosition().y + 37);
+	Bullet_Sprite.setPosition(player.Hero_Sprite.getPosition().x + 24, player.Hero_Sprite.getPosition().y + 37);
 }
+
 
 void Bullet::BulletUpdate(float time, const Enemy& enemy)
 {
     sf::Vector2f BulletPosition = Bullet_Sprite.getPosition();
     sf::Vector2f EnemyPosition = enemy.Enemy_Sprite.getPosition();
+    EnemyPosition.x += 28;
+    EnemyPosition.y += 39;
 
     direction = EnemyPosition - BulletPosition;
 
@@ -17,38 +20,75 @@ void Bullet::BulletUpdate(float time, const Enemy& enemy)
     float y = BulletPosition.y + time * speed * normalizeDirection.y;
 
     Bullet_Sprite.setPosition(x, y);
-
-	
 }
+
+
+float Bullet::getDistance(const sf::Vector2f& v1, const sf::Vector2f& v2)
+{
+	// –§—É–Ω–∫—Ü—ñ—è –¥–ª—è –æ–±—á–∏—Å–ª–µ–Ω–Ω—è –≤—ñ–¥—Å—Ç–∞–Ω—ñ –º—ñ–∂ –¥–≤–æ–º–∞ —Ç–æ—á–∫–∞–º–∏
+	float dx = v2.x - v1.x;
+	float dy = v2.y - v1.y;
+	return std::sqrt(dx * dx + dy * dy);
+}
+
+void Bullet::BulletUpdate_array(float time, const std::vector<Enemy>& enemies)
+{
+    sf::Vector2f BulletPosition = Bullet_Sprite.getPosition();
+    const Enemy* nearestEnemy = &enemies[0];
+    float min_distance = std::numeric_limits<float>::max();
+
+    for (auto& enemy : enemies)
+    {
+        float current_distance = getDistance(BulletPosition, enemy.Enemy_Sprite.getPosition());
+        if (current_distance < min_distance)
+        {
+            nearestEnemy = &enemy;
+            min_distance = current_distance;
+        }
+    }
+    sf::Vector2f nearestEnemyPosition = nearestEnemy->Enemy_Sprite.getPosition();
+	nearestEnemyPosition.x += 28;
+	nearestEnemyPosition.y += 39;
+
+    direction = nearestEnemyPosition - BulletPosition;
+    sf::Vector2f normalizeDirection = direction / std::sqrt((direction.x * direction.x + direction.y * direction.y));
+    // –û–±—á–∏—Å–ª—é—î–º–æ –Ω–æ–≤—É –ø–æ–∑–∏—Ü—ñ—é –ø—É–ª—ñ –∑ –≤–∏–∫–æ—Ä–∏—Å—Ç–∞–Ω–Ω—è–º –∫—Ä–æ–∫—É
+    float x = BulletPosition.x + time * speed * normalizeDirection.x;
+    float y = BulletPosition.y + time * speed * normalizeDirection.y;
+
+    Bullet_Sprite.setPosition(x, y);
+
+}
+
 
 void Bullet::BulletAnimation(float time, float CurentFrame) {
 	if (direction.x > 0) {
-		// –Ûı ‚Ô‡‚Ó
-		// ¬ËÍÓËÒÚ‡ÈÚÂ ‡Ì≥Ï‡ˆ≥˛ ‰Îˇ ÛıÛ ‚Ô‡‚Ó
-		Bullet_Sprite.setTexture(bulletRight_Texture); 
+		// √ê√≥√µ √¢√Ø√∞√†√¢√Æ
+		// √Ç√®√™√Æ√∞√®√±√≤√†√©√≤√• √†√≠¬≥√¨√†√∂¬≥√æ √§√´√ø √∞√≥√µ√≥ √¢√Ø√∞√†√¢√Æ
+		Bullet_Sprite.setTexture(bulletRight_Texture);
 		CurentFrame += time * 0.005;
 		if (CurentFrame >= 3) { CurentFrame -= 3; }
 		Bullet_Sprite.setTextureRect(sf::IntRect(32 * (int)CurentFrame, 0, 32, 17));
 	}
 	else if (direction.x < 0) {
-		// –Ûı ‚Î≥‚Ó
-		// ¬ËÍÓËÒÚ‡ÈÚÂ ‡Ì≥Ï‡ˆ≥˛ ‰Îˇ ÛıÛ ‚Î≥‚Ó
+		// √ê√≥√µ √¢√´¬≥√¢√Æ
+		// √Ç√®√™√Æ√∞√®√±√≤√†√©√≤√• √†√≠¬≥√¨√†√∂¬≥√æ √§√´√ø √∞√≥√µ√≥ √¢√´¬≥√¢√Æ
 		Bullet_Sprite.setTexture(bulletLeft_Texture);
 		CurentFrame += time * 0.005;
 		if (CurentFrame >= 3) { CurentFrame -= 3; }
 		Bullet_Sprite.setTextureRect(sf::IntRect(32 * (int)CurentFrame, 0, 32, 17));
 	}
 	else if (direction.y > 0) {
-		// –Ûı ‚ÌËÁ
-		// ¬ËÍÓËÒÚ‡ÈÚÂ ‡Ì≥Ï‡ˆ≥˛ ‰Îˇ ÛıÛ ‚ÌËÁ
+		// √ê√≥√µ √¢√≠√®√ß
+		// √Ç√®√™√Æ√∞√®√±√≤√†√©√≤√• √†√≠¬≥√¨√†√∂¬≥√æ √§√´√ø √∞√≥√µ√≥ √¢√≠√®√ß
 		Bullet_Sprite.setTexture(bulletDown_Texture);
 		CurentFrame += time * 0.005;
 		if (CurentFrame >= 3) { CurentFrame -= 3; }
 		Bullet_Sprite.setTextureRect(sf::IntRect(0, 32 * (int)CurentFrame, 17, 32));
 	}
 	else if (direction.y < 0) {
-		// –Ûı ‚„ÓÛ
-		// ¬ËÍÓËÒÚ‡ÈÚÂ ‡Ì≥Ï‡ˆ≥˛ ‰Îˇ ÛıÛ ‚„ÓÛ
+		// √ê√≥√µ √¢√£√Æ√∞√≥
+		// √Ç√®√™√Æ√∞√®√±√≤√†√©√≤√• √†√≠¬≥√¨√†√∂¬≥√æ √§√´√ø √∞√≥√µ√≥ √¢√£√Æ√∞√≥
 		Bullet_Sprite.setTexture(bulletUp_Texture);
 		CurentFrame += time * 0.005;
 		if (CurentFrame >= 3) { CurentFrame -= 3; }
